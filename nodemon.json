@@ -1,0 +1,4 @@
+{
+  "verbose": false,
+  "ignore": ["*.txt", "*.json", "src/client/*.js"]
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Cliente</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Client Test</h1>
+    <input type="text" id="texto">
+    <button id="btn">enviar</button>
+    <button class="btn btn-sm btn-primary" id="btn1">pegar dados</button>
+    <button class="btn btn-sm btn-primary" id="btn2">enviar dados</button>
+
+    <script>
+        //        var socket = io("18.231.25.240:4000");
+        var socket = io("localhost:3333");
+
+        socket.on('changeEntity-Person', (msg) => {
+            console.log('changeEvent', msg);
+        });
+
+        let elem = document.getElementById("btn");
+        elem.addEventListener("click", () => {
+            let msg = document.getElementById("texto").value;
+            console.log("msg: ", msg);
+            socket.emit('chat message', msg);
+        });
+
+
+        let btn1 = document.getElementById("btn1");
+        btn1.addEventListener("click", () => {
+            console.log("clicou no botão");
+            axios.get('http://localhost:3333/',{ params: { entity: 'Person', query: '*' } })
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+
+        let btn2 = document.getElementById("btn2");
+        btn2.addEventListener("click", () => {
+            console.log("clicou no botão");
+            let bodyFormData = new URLSearchParams();
+            bodyFormData.append('entity', "Person");
+            let data = { id: "marco", nome: "MARCO ZILDO", idade: 20 };
+            bodyFormData.append('data', JSON.stringify(data));
+            axios({
+                method: "post",
+                url: "http://localhost:3333/",
+                data: bodyFormData,
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            }).then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+
+    </script>
+</body>
+
+</html>

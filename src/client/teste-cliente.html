@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Cliente</title>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>Client</h1>
+    <input type="text" id="texto">
+    <button id="btn">enviar</button>
+
+
+    <script>
+        //        var socket = io("18.231.25.240:4000");
+        var socket = io("localhost:3333");
+
+        socket.on('changeEntity-Person', (msg) => {
+            console.log('changeEvent',msg);
+        });
+
+        let elem = document.getElementById("btn");
+        elem.addEventListener("click", () => {
+            let msg = document.getElementById("texto").value;
+            console.log("msg: ", msg);
+            socket.emit('chat message', msg);
+        });
+    </script>
+</body>
+
+</html>
