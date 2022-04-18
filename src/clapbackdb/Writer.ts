@@ -46,7 +46,7 @@ export default class Writer {
 
       // Call resolve
       this.#prev?.[0]()
-    } catch (err) {
+    } catch (err: any) {
       // Call reject
       this.#prev?.[1](err)
       throw err

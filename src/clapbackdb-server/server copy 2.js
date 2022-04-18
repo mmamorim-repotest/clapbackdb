@@ -1,5 +1,4 @@
-
-
+"use strict";
 //var Dirty = require('dirty');
 //
 //var db = new Dirty('user.db');
@@ -16,7 +15,6 @@
 //        console.log('Found key: %s, val: %j', key, val);
 //    });
 //});
-
 //db.on('drain', function () {
 //    console.log('All records are saved on disk now.');
 //});
